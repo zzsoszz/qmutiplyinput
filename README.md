@@ -1,0 +1,2 @@
+# qmutiplyinput
+jquery plugin
