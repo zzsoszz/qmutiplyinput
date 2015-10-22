@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+
+<link rel="stylesheet" href="jquery.qmutiplyinput.css"   media="all"    type="text/css" />
+<link rel="stylesheet" href="bootstrap.css"   media="all"    type="text/css" />
+<script type="text/javascript"  src="jquery-1.10.2.js" ></script>
+<script type="text/javascript"  src="jquery.qmutiplyinput.js" ></script>
+
+
+<script>
+	$(document).ready(
+		function()
+		{
+			
+			$("#containerinput").qmutiplyinput({
+				value:"高手,你好",
+				resultele:$("#result"),
+				tpl:$("#mytime"),
+				tplData:{name:'房型'},
+				onAdd:function(item)
+				{
+					//alert("111");
+				},
+				onRemove:function(item)
+				{
+					//alert("222");
+				}
+			});
+			
+			$("#btnAddFirst").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("addfirst");
+				}
+			);
+			
+			$("#btnAddLast").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("addlast");
+				}
+			);
+			
+			$("#btnRemoveFirst").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("removefirst");
+				}
+			);
+			
+			$("#btnRemoveLast").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("removelast");
+				}
+			);
+			
+			$("#change").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("change",$("#count").val());
+				}
+			);
+			
+			
+			
+			
+			/*
+			 * summary: 将指定的 String 中的每个格式（例如：{0}, {1}等）项替换为相应对象的值的文本等效项。
+			 *          需显示左大括号时，应输入双左大括号，即 "{{" 。
+			 *
+			 * parameter:
+			 *     fmtStr@string: 包含零个或多个格式项。
+			 *     paramsArray@paramsObject[]: 包含零个或多个要格式化的对象的 Object 数组。
+			 *
+			 * return: fmtStr 的一个副本，其中格式项已替换为 paramsArray 中相应 Object 实例的 String 等效项。
+			 *
+			 * example: document.write(String.format("hello, {0}, {1}!<br />keey {{{{2}}", "world", 123));
+			 */
+			String.format = function(fmtStr, paramsArray) {
+				var output = fmtStr;
+				var re;
+				var valueArray;
+
+				if (paramsArray instanceof Array)
+					valueArray = paramsArray
+				else
+				{
+					valueArray = new Array();
+					for (var i=1; i<arguments.length; i++)
+						valueArray.push(arguments[i]);
+				}
+
+				for (var i=0; i<valueArray.length; i++)
+				{
+					re = new RegExp("(\\{)?\\{"+i+"}", "g");
+					output = output.replace(re, function($0, $1){
+							alert("$!",$1);
+							alert("$0",$0);
+							return $1 ? $0 : valueArray[i];
+						});
+				}
+				alert(output);
+				return output.replace(new RegExp("\\{\\{", "g"), "{");
+			};
+
+			document.write(String.format("hello, {0}, {1}!<br />keey {{{2}}}", "world", 123));
+
+
+
+		}
+	);
+</script>
+
+
+</head>
+
+
+<body>
+	
+	<div id="containerinput">
+		
+		<div id="mytime" class="time"  style="display:none">
+				<div class="left">{name} {index}</div>
+				<div class="right">
+					<input  class="item {required:true,minlength:2}" type="text"   autocapitalize="off"  placeholder="密码"/>
+				</div>
+		</div>
+		
+		<div id="mytime" class="time"  style="display:none">
+			<div class="left">{name} {index}</div>
+			<div class="right">
+				<input  class="item {required:true,minlength:2}" type="text"   autocapitalize="off"  placeholder="密码"/>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	<div id="mytime" class="time"  style="display:none">
+		<div class="left">{name} {index}</div>
+		<div class="right">
+			<input  class="item {required:true,minlength:2}" type="text"   autocapitalize="off"  placeholder="密码"/>
+		</div>
+	</div>
+	
+	
+	
+	<input  id="result" type="text"  value=""/>
+	<div>
+		<input  id="btnAddFirst" type="button"  value="btnAddFirst"/>
+		<input  id="btnAddLast" type="button"  value="btnAddLast"/>
+		<input  id="btnRemoveFirst" type="button"  value="btnRemoveFirst"/>
+		<input  id="btnRemoveLast" type="button"   value="btnRemoveLast"/>
+		
+		<br>
+		<input  id="count" type="input"  value="5"/>
+		<input  id="change" type="button"  value="change"/>
+	</div>
+	
+	
+</body>
+
+</html>
