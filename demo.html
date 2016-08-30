@@ -4,17 +4,70 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
 
-<link rel="stylesheet" href="jquery.qinfinite.css"   media="all"    type="text/css" />
+<link rel="stylesheet" href="jquery.qmutiplyinput.css"   media="all"    type="text/css" />
 <link rel="stylesheet" href="bootstrap.css"   media="all"    type="text/css" />
 <script type="text/javascript"  src="jquery-1.10.2.js" ></script>
-<script type="text/javascript"  src="jquery.qinfinite.js" ></script>
+<script type="text/javascript"  src="jquery.qmutiplyinput.js" ></script>
 
 
 <script>
 	$(document).ready(
 		function()
 		{
-			$("#qinfinite").qinfinite();
+			
+			$("#containerinput").qmutiplyinput({
+				value:"高手,你好",
+				resultele:$("#result"),
+				tpl:$("#mytime"),
+				tplData:{name:'房型'},
+				onAdd:function(item)
+				{
+					//alert("111");
+				},
+				onRemove:function(item)
+				{
+					//alert("222");
+				}
+			});
+			
+			$("#btnAddFirst").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("addfirst");
+				}
+			);
+			
+			$("#btnAddLast").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("addlast");
+				}
+			);
+			
+			$("#btnRemoveFirst").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("removefirst");
+				}
+			);
+			
+			$("#btnRemoveLast").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("removelast");
+				}
+			);
+			
+			$("#change").click(
+				function()
+				{
+					$("#containerinput").qmutiplyinput("change",$("#count").val());
+				}
+			);
+			
+		
+
+
 		}
 	);
 </script>
@@ -22,10 +75,50 @@
 
 </head>
 
+
 <body>
-	<div id="qinfinite">
+	
+	<div id="containerinput">
+		
+		<div id="mytime" class="time"  style="display:none">
+				<div class="left">{name} {index}</div>
+				<div class="right">
+					<input  class="item {required:true,minlength:2}" type="text"   autocapitalize="off"  placeholder="密码"/>
+				</div>
+		</div>
+		
+		<div id="mytime" class="time"  style="display:none">
+			<div class="left">{name} {index}</div>
+			<div class="right">
+				<input  class="item {required:true,minlength:2}" type="text"   autocapitalize="off"  placeholder="密码"/>
+			</div>
+		</div>
 		
 	</div>
+	
+	
+	<div id="mytime" class="time"  style="display:none">
+		<div class="left">{name} {index}</div>
+		<div class="right">
+			<input  class="item {required:true,minlength:2}" type="text"   autocapitalize="off"  placeholder="密码"/>
+		</div>
+	</div>
+	
+	
+	
+	<input  id="result" type="text"  value=""/>
+	<div>
+		<input  id="btnAddFirst" type="button"  value="btnAddFirst"/>
+		<input  id="btnAddLast" type="button"  value="btnAddLast"/>
+		<input  id="btnRemoveFirst" type="button"  value="btnRemoveFirst"/>
+		<input  id="btnRemoveLast" type="button"   value="btnRemoveLast"/>
+		
+		<br>
+		<input  id="count" type="input"  value="5"/>
+		<input  id="change" type="button"  value="change"/>
+	</div>
+	
+	
 </body>
 
 </html>
